@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Random book</title>
+</head>
+<body>
+    <div class="wrap">
+        <input type="text" class="search"
+                 placeholder="Внесите название книги\статьи">
+         <footer>
+            <legend>Выберите тип публикации</legend>
+            <div class="radio-btn">
+                <div class="art">
+                    <input type="radio" id="art" value="art" name="selection">
+                    <label for="art">Статья</label>
+                </div>
+                <div class="book">
+                    <input type="radio" id="book" value="book" name="selection">
+                    <label for="book">Книга</label>
+                </div>
+            </div> 
+            <button class="gen">Нажать тут</button> 
+            <span class="exit"></span> 
+         </footer>        
+        </div>
+    <style>
+        *{margin: 0; padding: 0}
+        .wrap{
+            margin: 35px auto;
+            display: block;
+            max-width: 750px;
+            text-align: center
+            }
+        input,button{
+            background: #729ece;
+            color: #000;
+            border: 0px;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .search{
+            height: 35px;
+            width: 500px;
+        }
+        button{
+            width: 50%;
+            margin-top: 20px;
+            height: 50px; 
+            font-size: 20px;
+            cursor: pointer }
+        input::placeholder{
+            color: #000;
+            text-align: center;
+            font-size: 16px;            
+        }
+        .radio-btn{
+            width: 400px;
+            display: inline-block;
+        }
+        .exit{
+            margin-top: 63px;
+            display: inherit;
+        }
+        /* COMMON RADIO AND CHECKBOX STYLES  */
+            input[type=radio],
+            input[type=checkbox]{
+            /* Hide original inputs */
+            visibility: hidden;
+            }
+            input[type=radio] + label:before,
+            input[type=checkbox] + label:before{
+            height:12px;
+            width:12px;
+            margin-right: 2px;
+            content: " ";
+            display:inline-block;
+            vertical-align: baseline;
+            border:1px solid #777;
+            background:#729ece;
+            }
+            input[type=radio]:checked + label:before,
+            input[type=checkbox]:checked + label:before{
+            background:#000;
+            }
+
+            /* CUSTOM RADIO AND CHECKBOX STYLES */
+            input[type=radio] + label:before{
+            border-radius:50%;
+            }
+            input[type=checkbox] + label:before{
+            border-radius:2px;
+            }
+        legend{margin: 15px 0;}
+        .art, .book{width: 45%;float: left}
+    </style>
+
+    <script>
+    var search = document.querySelector(".search"),
+        art = document.querySelector('#art'),
+        book = document.querySelector('#book'),
+        btn = document.querySelector('.gen'),
+        exitSpan = document.querySelector('.exit'),
+        names = [
+            "Иванов, И. И.",
+            "Петров, А. А.",
+            "Сидоров, Г. Ф."
+            ],
+        publisher = [
+            "Издательство1",
+            "Издательство2",
+            "Издательство3"
+        ],
+        magazine = [
+        "Наука и жизнь",
+        "Педагогика и мир",
+        "Научная мысль",
+        "Проблемы современной науки"
+        ];
+        
+        function random(arr) {                     
+            var rand = 0 - 0.5 + Math.random() * (arr.length - 0);
+                rand = Math.round(rand);                
+                return rand;            
+        }
+        function randomInteger(min, max) {
+            var rand = min - 0.5 + Math.random() * (max - min + 1)
+            rand = Math.round(rand);
+            return rand;
+        }
+        btn.onclick = function(){
+            if(search.value != ""){
+                if (book.checked) {           
+                exitSpan.innerHTML = names[random(names)] + 
+                                    search.value +". М.: " +
+                                    publisher[random(publisher)] +", "+
+                                    randomInteger(2000,2019)+". "+
+                                    randomInteger(3,400) +"с. "
+                }
+                else if(art.checked){
+                    exitSpan.innerHTML = names[random(names)]+
+                                        search.value +" // "+
+                                        magazine[random(magazine)] +". № "+
+                                        randomInteger(1,12)+". "+
+                                        randomInteger(2000,2019)+". С. "+
+                                        randomInteger(3,10)+"- "+
+                                        randomInteger(11,40)+". "
+                }
+                else{
+                    exitSpan.innerHTML = "Выберите тип публикации!"
+                }
+            }
+            else exitSpan.innerHTML = "Название забыли!"
+        }
+        
+        
+    
+    </script>
+</body>
+</html>
